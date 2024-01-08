@@ -1,6 +1,6 @@
 package com.wlopezob.personav1.model.dto;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Getter
@@ -12,15 +12,16 @@ public class PersonRequestDto {
 
     private Long id;
 
-    @NotNull(message = "DNI is required")
+    @NotBlank(message = "DNI is required")
     private String dni;
 
-    @NotNull(message = "Name is required")
+    @NotBlank(message = "Name is required")
     private String name;
 
-    @NotNull(message = "Lastname is required")
+    @NotBlank(message = "Last name is required")
     private String lastname;
 
     private String fathername;
+
     private int age;
 }

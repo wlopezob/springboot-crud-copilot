@@ -5,7 +5,7 @@
 ### Class Entity
 - Create the entity class PersonEntity corresponding to the person table
 - Add Lombok annotations : @Getter, @Setter, @NoArgsConstructor , @AllArgsConstructor and @Builder
-- Add JPA annotations to map the class PersonEntity to a database table person, and its fields to corresponding columns.
+- Add JPA annotations @Column with column name, to map the  PersonEntity class to a database table person
 - Use the following JSON structure to define the field of the PersonEntity {
   "id": "Long",
   "dni": "String",
@@ -22,7 +22,7 @@
 ### Class Dto
 - Add Lombok annotations : @Getter, @Setter, @NoArgsConstructor , @AllArgsConstructor and @Builder
 - Create the class PersonRequestDto containing the same fields as the class PersonEntity
-- the fields dni, name and lastname are required, add message error
+- the fields dni, name and lastname are required and add message error
 
 ### Class Dto
 - Add Lombok annotations : @Getter, @Setter, @NoArgsConstructor , @AllArgsConstructor, @Builder and @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -39,11 +39,11 @@
 
 ### Class Mapper
 - Create interface MapStruct PersonMapper
-- Use Spring's @Mapper annotation to define it as a mapper component
+- Use @Mapper(componentModel = "spring") annotation to define it as a mapper component
 - Create method to convert PersonRequestDto to PersonEntity
 - Create method to convert PersonEntity to PersonResponseDto
-- Create method for updating PersonEntity with PersonRequestDto, updating all fields except the id
-
+- Create method for updating PersonEntity with PersonRequestDto, updating all fields and ignore the field id
+- 
 ### Method savePerson
 - Create the class PersonServiceImpl that implements PersonService
 - Add the @Service annotation
@@ -62,7 +62,7 @@
 - Utilize Spring Webflux in the implementation.
 - Use request path "/person"
 - Create the savePerson endpoint to save a person, consider the following steps:
-The endpoint should be a POST and valid the request
+  - The endpoint should be a POST and valid the request
   - Invoke the savePerson method of PersonService
   - Return Mono<ResponseEntity<PersonResponseDto>>
 

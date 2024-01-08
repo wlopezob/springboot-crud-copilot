@@ -1,11 +1,7 @@
 package com.wlopezob.personav1.model.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import lombok.*;
 
 @Getter
 @Setter
@@ -13,7 +9,7 @@ import lombok.Builder;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "persona")
+@Table(name = "person")
 public class PersonEntity {
 
     @Id

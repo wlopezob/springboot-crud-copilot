@@ -6,13 +6,14 @@ import com.wlopezob.personav1.model.entity.PersonEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface PersonMapper {
 
-    PersonEntity requestDtoToEntity(PersonRequestDto personRequestDto);
+    PersonEntity requestDtoToEntity(PersonRequestDto dto);
 
-    PersonResponseDto entityToResponseDto(PersonEntity personEntity);
+    PersonResponseDto entityToResponseDto(PersonEntity entity);
 
     @Mapping(target = "id", ignore = true)
     void updateEntityFromDto(PersonRequestDto dto, @MappingTarget PersonEntity entity);
