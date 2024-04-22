@@ -1,5 +1,6 @@
 package com.wlopezob.personav1.service.impl;
 
+import com.wlopezob.personav1.Util.Util;
 import com.wlopezob.personav1.mapper.PersonMapper;
 import com.wlopezob.personav1.model.dto.PersonRequestDto;
 import com.wlopezob.personav1.model.dto.PersonResponseDto;
@@ -23,30 +24,17 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonResponseDto savePerson(PersonRequestDto personRequestDto) {
+        validatePerson(personRequestDto);
+        PersonEntity personEntity = personMapper.requestDtoToEntity(personRequestDto);
+        PersonEntity savedEntity = personRepository.save(personEntity);
+        //String save = Util.convertObjectToJson(savedEntity);
+        return personMapper.entityToResponseDto(savedEntity);
+    }
+
+    private void validatePerson(PersonRequestDto personRequestDto) {
         personRepository.findByDni(personRequestDto.getDni())
                 .ifPresent(person -> {
                     throw new RuntimeException("Person with DNI " + personRequestDto.getDni() + " already exists.");
                 });
-        PersonEntity personEntity = personMapper.requestDtoToEntity(personRequestDto);
-        PersonEntity savedEntity = personRepository.save(personEntity);
-
-        return personMapper.entityToResponseDto(savedEntity);
     }
-
-    @Override
-    public PersonResponseDto updatePerson(Long id, PersonRequestDto personRequestDto) {
-        return null;
-    }
-
-    @Override
-    public void deletePerson(Long id) {
-
-    }
-
-    @Override
-    public List<PersonResponseDto> listPerson() {
-        return null;
-    }
-
-    // Other methods...
 }

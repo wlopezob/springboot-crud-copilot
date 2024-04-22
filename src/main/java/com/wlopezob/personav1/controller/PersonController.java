@@ -26,6 +26,4 @@ public class PersonController {
         return Mono.just(personService.savePerson(personRequestDto))
                 .map(ResponseEntity::ok);
     }
-
-    // Other endpoints...
 }

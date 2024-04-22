@@ -9,9 +9,9 @@ public interface PersonService {
 
     PersonResponseDto savePerson(PersonRequestDto personRequestDto);
 
-    PersonResponseDto updatePerson(Long id, PersonRequestDto personRequestDto);
+    default PersonResponseDto updatePerson(Long id, PersonRequestDto personRequestDto) { return null; };
 
-    void deletePerson(Long id);
+    default void deletePerson(Long id){};
 
-    List<PersonResponseDto> listPerson();
+    default List<PersonResponseDto> listPerson(){ return null; };
 }
