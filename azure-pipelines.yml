@@ -11,6 +11,7 @@ pool:
 
 steps:
 - task: Maven@4
+  displayName: Ejecutando unit test y generando target
   inputs:
     mavenPomFile: 'pom.xml'
     goals: 'clean install'
