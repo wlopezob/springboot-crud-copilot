@@ -26,3 +26,9 @@ steps:
     sonarQubeRunAnalysis: false
     checkStyleRunAnalysis: true
 
+- task: PublishBuildArtifacts@1
+  displayName: Publicar Target
+  inputs:
+    PathtoPublish: '$(Build.SourcesDirectory)/target'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
