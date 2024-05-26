@@ -29,6 +29,7 @@
       "vscjava.vscode-spring-initializr"
       "ckolkman.vscode-postgres"
       "rangav.vscode-thunder-client"
+      "VMware.vscode-boot-dev-pack"
     ];
     # Enable previews
     previews = {
