@@ -3,6 +3,11 @@
 { pkgs, ... }: {
   # Which nixpkgs channel to use.
   channel = "stable-23.11"; # or "unstable"
+  services.docker.enable = true;
+  services.mysql = {
+    enable = true;
+    package = pkgs.mariadb;
+  };
   # Use https://search.nixos.org/packages to find packages
   packages = [
     pkgs.nodejs_18
@@ -30,6 +35,8 @@
       "ckolkman.vscode-postgres"
       "rangav.vscode-thunder-client"
       "VMware.vscode-boot-dev-pack"
+      "humao.rest-client"
+      "formulahendry.vscode-mysql"
     ];
     # Enable previews
     previews = {
