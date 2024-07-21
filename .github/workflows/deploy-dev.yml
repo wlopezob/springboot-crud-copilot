@@ -1,13 +1,13 @@
 name: deploy-dev-environment
 run-name: ${{ github.actor }}
-#on: [push]
-on:
-    workflow_dispatch:
-        inputs:
-            branchName:
-                description: Branch's name
-                type: string
-                required: true
+on: [push]
+# on:
+#     workflow_dispatch:
+#         inputs:
+#             branchName:    
+#                 description: Branch's name
+#                 type: string
+#                 required: true
 jobs:
     check-bats-version:
         runs-on: ubuntu-latest
