@@ -1,0 +1,28 @@
+name: deploy-dev-environment
+run-name: ${{ github.actor }}
+#on: [push]
+on:
+    workflow_dispatch:
+        inputs:
+            branchName:
+                description: Branch's name
+                type: string
+                required: true
+jobs:
+    check-bats-version:
+        runs-on: ubuntu-latest
+        steps:
+            - name: branch seleted
+              run: echo "branch is ${{ inputs.branchName }}"
+              
+            - uses: actions/checkout@v4.1.7
+            
+            - name: Setup Java JDK
+              uses: actions/setup-java@v4.2.1
+              with: 
+                  java-version: 17
+                  distribution: temurin
+                  cache: maven
+            - name: build with maven
+              run: |
+                  mvn clean install
