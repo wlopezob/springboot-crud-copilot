@@ -63,7 +63,7 @@ jobs:
               with:
                 context: .
                 push: true
-                tags: ${{ steps.docker_metadata.outputs.tags }}
+                tags: ${{ env.PROJECT_VERSION }}"
                 labels: ${{ steps.docker_metadata.outputs.labels }}
             
             # - name: build with maven
