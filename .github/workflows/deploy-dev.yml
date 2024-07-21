@@ -28,6 +28,13 @@ jobs:
                   java-version: 17
                   distribution: temurin
                   cache: maven
-            - name: build with maven
+            # - name: build with maven
+            #   run: |
+            #       mvn clean install
+            - name: Get version from pom.xml
+              id: get_version
               run: |
-                  mvn clean install
+                VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+                echo "PROJECT_VERSION=$VERSION" >> $GITHUB_ENV
+            - name: Print project version
+              run: echo "The project version is ${{ env.PROJECT_VERSION }}"
