@@ -37,6 +37,7 @@
       "VMware.vscode-boot-dev-pack"
       "humao.rest-client"
       "formulahendry.vscode-mysql"
+      "GitHub.vscode-github-actions"
     ];
     # Enable previews
     previews = {
