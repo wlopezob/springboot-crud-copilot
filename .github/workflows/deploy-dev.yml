@@ -63,7 +63,7 @@ jobs:
               id: replace_tag
               run: |
                 TAGS="${{ steps.docker_metadata.outputs.tags }}"
-                NEW_TAG=$(echo $TAGS | sed "s/:.*$/:$PROJECT_VERSION/")
+                NEW_TAG=$(echo $TAGS | sed "s/:.*$/:0.0.1/")
                 echo "NEW_TAGS=$NEW_TAGS" >> $GITHUB_ENV
       
             # - name: Build and push Docker image
