@@ -63,8 +63,9 @@ jobs:
               with:
                 context: .
                 push: true
-                tags: ${{ secrets.DOCKER_USERNAME }}/springbootcrud:latest
+                tags: ${{ steps.docker_metadata.outputs.tags }}
                 labels: ${{ steps.docker_metadata.outputs.labels }}
+            #${{ secrets.DOCKER_USERNAME }}/springbootcrud:latest
             #${{ env.PROJECT_VERSION }}
             # - name: build with maven
             #   run: |
