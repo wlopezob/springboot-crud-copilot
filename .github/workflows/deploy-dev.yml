@@ -7,13 +7,16 @@ on:
             branchName:    
                 description: Branch's name
                 type: string
+                default: feature/savepersonandtestunit
                 required: true
 jobs:
     check-bats-version:
         runs-on: ubuntu-latest
+        env:
+            BRANCH_NAME: ${{ inputs.branchName }}
         steps:
             - name: branch seleted
-              run: echo "branch is ${{ inputs.branchName }}"
+              run: echo "branch is $BRANCH_NAME"
               
             - uses: actions/checkout@v4.1.7
               with:
