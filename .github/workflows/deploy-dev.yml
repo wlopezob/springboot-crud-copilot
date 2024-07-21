@@ -57,14 +57,17 @@ jobs:
               uses: docker/metadata-action@v5.5.1
               with:
                 images: wlopezob/springboot-crud
+            - run: echo ${{ steps.docker_metadata.outputs.tags }}
+            - run: echo ${{ steps.docker_metadata.outputs.labels }}
 
-            - name: Build and push Docker images
-              uses: docker/build-push-action@v6.4.1
-              with:
-                context: .
-                push: true
-                tags: ${{ steps.docker_metadata.outputs.tags }}
-                labels: ${{ steps.docker_metadata.outputs.labels }}
+            # - name: Build and push Docker images
+            #   uses: docker/build-push-action@v6.4.1
+            #   with:
+            #     context: .
+            #     push: true
+            #     tags: ${{ steps.docker_metadata.outputs.tags }}
+            #     labels: ${{ steps.docker_metadata.outputs.labels }}
+
             #${{ secrets.DOCKER_USERNAME }}/springbootcrud:latest
             #${{ env.PROJECT_VERSION }}
             # - name: build with maven
