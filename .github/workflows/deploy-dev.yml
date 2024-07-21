@@ -53,9 +53,19 @@ jobs:
                 password: ${{ secrets.DOCKER_PASSWORD }}
             
             - name: Docker Metadata action
+              id: docker_metadata
               uses: docker/metadata-action@v5.5.1
               with:
                 images: wlopezob/springboot-crud
+
+            - name: Build and push Docker images
+              uses: docker/build-push-action@v6.4.1
+              with:
+                context: .
+                push: true
+                tags: ${{ steps.docker_metadata.outputs.tags }}
+                labels: ${{ steps.docker_metadata.outputs.labels }}
+            
             # - name: build with maven
             #   run: |
             #       mvn clean install
