@@ -10,15 +10,15 @@ on:
                 default: feature/savepersonandtestunit
                 required: true
 jobs:
-    check-bats-version:
+    deloyment_dev:
         runs-on: ubuntu-latest
         env:
             BRANCH_NAME: ${{ inputs.branchName }}
         steps:
             - name: Ensure running branch dev
               run: |
-                if [[ "${GITHUB_REF##*/}" == "main" || "${GITHUB_REF##*/}" == "master" 
-                || "${GITHUB_REF##*/}" == "develop" ]]; then
+                if [[ "$BRANCH_NAME" == "main" || "$BRANCH_NAME" == "master" 
+                || "$BRANCH_NAME" == "develop" ]]; then
                   echo "This workflow can´t only run on the 'main' or 'master' branch."
                   exit 1
                 fi
