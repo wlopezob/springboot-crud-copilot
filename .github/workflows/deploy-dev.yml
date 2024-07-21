@@ -17,11 +17,12 @@ jobs:
         steps:
             - name: Ensure running on main or master branch
               run: |
-                if [[ "${GITHUB_REF##*/}" == "main" || "${GITHUB_REF##*/}" == "master" ]]; then
+                if [[ "${GITHUB_REF##*/}" == "main" || "${GITHUB_REF##*/}" == "master" 
+                || "${GITHUB_REF##*/}" == "develop" ]]; then
                   echo "This workflow can´t only run on the 'main' or 'master' branch."
                   exit 1
                 fi
-                
+
             - name: branch seleted
               run: echo "branch is $BRANCH_NAME"
               
