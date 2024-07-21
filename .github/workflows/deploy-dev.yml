@@ -64,7 +64,7 @@ jobs:
               with:
                 context: .
                 push: true
-                tags: wlopezob/springboot-crud:main
+                tags: wlopezob/springboot-crud:0.0.1-SNAPSHOT
                 labels: ${{ steps.docker_metadata.outputs.labels }}
 
             #${{ secrets.DOCKER_USERNAME }}/springbootcrud:latest
