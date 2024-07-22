@@ -68,6 +68,15 @@
 	</dependencies>
 
 	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.sonarsource.scanner.maven</groupId>
+					<artifactId>sonar-maven-plugin</artifactId>
+					<version>4.0.0.4121</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<plugins>
 			<plugin>
 				<groupId>org.jacoco</groupId>
@@ -129,12 +138,6 @@
 						</path>
 					</annotationProcessorPaths>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.sonarsource.scanner.maven</groupId>
-				<artifactId>sonar-maven-plugin</artifactId>
-				<!-- see versions at https://search.maven.org/search?q=g:org.sonarsource.scanner.maven%20AND%20a:sonar-maven-plugin -->
-				<version>4.0.0.4121</version>
 			</plugin>
 		</plugins>
 	</build>
