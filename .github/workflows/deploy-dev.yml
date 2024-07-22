@@ -52,19 +52,26 @@ jobs:
             - name: build and test with maven
               run: |
                   mvn clean install
+                  - name: Build and analyze
+                  env:
+                    SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+                  run: mvn verify sonar:sonar \
+                    -Dsonar.host.url=https://sonarcloud.io \
+                    -Dsonar.organization=demodemo \
+                    -Dsonar.projectKey=demodemo_spring-boot-crud-copilot
 
-            - name: Analyze with SonarCloud
-              uses: SonarSource/sonarqube-scan-action@v2.3.0
-              with:
-                projectBaseDir: .
-                args: >
-                  -Dsonar.organization=my-organization
-                  -Dsonar.projectKey=demodemo_spring-boot-crud-copilot
-                  -Dsonar.python.coverage.reportPaths=target/site/jacoco/coverage.xml
-                  -Dsonar.sources=src/
-                  -Dsonar.test.exclusions=src/test/**
-                  -Dsonar.tests=src/test/
-                  -Dsonar.verbose=true
+            # - name: Analyze with SonarCloud
+            #   uses: SonarSource/sonarqube-scan-action@v2.3.0
+            #   with:
+            #     projectBaseDir: .
+            #     args: >
+            #       -Dsonar.organization=my-organization
+            #       -Dsonar.projectKey=demodemo_spring-boot-crud-copilot
+            #       -Dsonar.python.coverage.reportPaths=target/site/jacoco/coverage.xml
+            #       -Dsonar.sources=src/
+            #       -Dsonar.test.exclusions=src/test/**
+            #       -Dsonar.tests=src/test/
+            #       -Dsonar.verbose=true
 
             - name: Generate JaCoCo Badge
               uses: cicirello/jacoco-badge-generator@v2
