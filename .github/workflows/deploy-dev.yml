@@ -30,12 +30,12 @@ jobs:
               with:
                   ref: ${{inputs.branchName}}
             
-            - name: Setup Java JDK
-              uses: actions/setup-java@v4.2.1
-              with: 
-                  java-version: 17
-                  distribution: temurin
-                  cache: maven
+            # - name: Setup Java JDK
+            #   uses: actions/setup-java@v4.2.1
+            #   with: 
+            #       java-version: 17
+            #       distribution: temurin
+            #       cache: maven
 
             - name: Get version from pom.xml
               id: get_version
@@ -57,7 +57,7 @@ jobs:
               uses: docker/metadata-action@v5.5.1
               with:
                 images: wlopezob/springboot-crud
-            - run: echo ${{ steps.docker_metadata.outputs.tags }}
+            # - run: echo ${{ steps.docker_metadata.outputs.tags }}
             
             - name: Replace tag suffix
               id: replace_tag
@@ -77,8 +77,6 @@ jobs:
                 tags: ${{ env.NEW_TAGS }}
                 labels: ${{ steps.docker_metadata.outputs.labels }}
 
-            #${{ secrets.DOCKER_USERNAME }}/springbootcrud:latest
-            #${{ env.PROJECT_VERSION }}
             # - name: build with maven
             #   run: |
             #       mvn clean install
