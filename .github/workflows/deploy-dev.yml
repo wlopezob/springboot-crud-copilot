@@ -43,7 +43,16 @@ jobs:
               run: |
                 VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
                 echo "PROJECT_VERSION=$VERSION" >> $GITHUB_ENV
-              
+
+            - name: Get XML
+              id: getxml
+              uses: mavrosxristoforos/get-xml-info@1.0
+              with:
+                xml-file: 'a-file-here.xml'
+                xpath: '//version'  
+         
+            - run: echo "The version is ${{ steps.getxml.outputs }}"
+            
             - name: Print project version
               run: echo "The project version is ${{ env.PROJECT_VERSION }}"
             
@@ -65,10 +74,9 @@ jobs:
                 TAGS="${{ steps.docker_metadata.outputs.tags }}"
                 NEW_TAGS=$(echo $TAGS | sed "s/:.*$/:$PROJECT_VERSION/")
                 echo "NEW_TAGS=$NEW_TAGS" >> $GITHUB_ENV
-                echo "The new tags are ${{ env.NEW_TAGS }}"
             
-            # - name: Print new tags
-            #   run: echo "The new tags are ${{ env.NEW_TAGS }}"
+            - name: Print new tags
+              run: echo "The new tags are ${{ env.NEW_TAGS }}"
 
             # - name: Build and push Docker images
             #   uses: docker/build-push-action@v6.4.1
