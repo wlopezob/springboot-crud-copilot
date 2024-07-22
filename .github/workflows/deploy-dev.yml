@@ -57,7 +57,7 @@ jobs:
               id: docker_metadata
               uses: docker/metadata-action@v5.5.1
               with:
-                images: $REPOSITORY_IMAGE/springboot-crud
+                images: ${{ env.REPOSITORY_IMAGE }}/springboot-crud
             # - run: echo ${{ steps.docker_metadata.outputs.tags }}
             
             - name: Replace tag suffix
