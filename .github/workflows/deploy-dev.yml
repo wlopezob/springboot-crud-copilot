@@ -18,6 +18,7 @@ jobs:
             PROJECT_VERSION: ''
             ARTIFACT_ID: ''
             NEW_TAGS: ''
+            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         steps:
             # - name: Ensure running branch dev
             #   run: |
@@ -32,7 +33,7 @@ jobs:
               uses: actions/github-script@v6
               with:
                 script: |
-                  core.setFailed("This workflow can´t only run on the 'main' or 'master' branch.")
+                  core.setFailed("This workflow can´t only run on the main, master or develop branch.")
 
             - name: branch seleted
               run: echo "branch is $BRANCH_NAME"
@@ -51,6 +52,19 @@ jobs:
             - name: build and test with maven
               run: |
                   mvn clean install
+
+            - name: Analyze with SonarCloud
+              uses: SonarSource/sonarqube-scan-action@v2.3.0
+              with:
+                projectBaseDir: .
+                args: >
+                  -Dsonar.organization=my-organization
+                  -Dsonar.projectKey=demodemo_spring-boot-crud-copilot
+                  -Dsonar.python.coverage.reportPaths=target/site/jacoco/coverage.xml
+                  -Dsonar.sources=src/
+                  -Dsonar.test.exclusions=src/test/**
+                  -Dsonar.tests=src/test/
+                  -Dsonar.verbose=true
 
             - name: Generate JaCoCo Badge
               uses: cicirello/jacoco-badge-generator@v2
