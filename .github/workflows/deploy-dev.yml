@@ -60,7 +60,7 @@ jobs:
               id: docker_metadata
               uses: docker/metadata-action@v5.5.1
               with:
-                images: ${{ env.REPOSITORY_IMAGE }}/springboot-crud
+                images: ${{ env.REPOSITORY_IMAGE }}/${{ env.ARTIFACT_ID }}
             
             - name: Replace and Print new tag suffix
               id: replace_tag
@@ -72,13 +72,13 @@ jobs:
             - name: Print new tags
               run: echo "The new tags are ${{ env.NEW_TAGS }}"
 
-            # - name: Build and push Docker images
-            #   uses: docker/build-push-action@v6.4.1
-            #   with:
-            #     context: .
-            #     push: true
-            #     tags: ${{ env.NEW_TAGS }}
-            #     labels: ${{ steps.docker_metadata.outputs.labels }}
+            - name: Build and push Docker images
+              uses: docker/build-push-action@v6.4.1
+              with:
+                context: .
+                push: true
+                tags: ${{ env.NEW_TAGS }}
+                labels: ${{ steps.docker_metadata.outputs.labels }}
 
             # - name: build with maven
             #   run: |
