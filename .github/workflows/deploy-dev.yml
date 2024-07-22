@@ -15,6 +15,9 @@ jobs:
         env:
             BRANCH_NAME: ${{ inputs.branchName }}
             REPOSITORY_IMAGE: wlopezob
+            PROJECT_VERSION: ''
+            ARTIFACT_ID: ''
+            NEW_TAGS: ''
         steps:
             - name: Ensure running branch dev
               run: |
@@ -29,15 +32,8 @@ jobs:
               
             - uses: actions/checkout@v4.1.7
               with:
-                  ref: ${{inputs.branchName}}
+                  ref: ${{ env.BRANCH_NAME }}
             
-            # - name: Setup Java JDK
-            #   uses: actions/setup-java@v4.2.1
-            #   with: 
-            #       java-version: 17
-            #       distribution: temurin
-            #       cache: maven
-
             - name: Get version from pom.xml
               id: get_version
               run: |
@@ -62,14 +58,14 @@ jobs:
               with:
                 images: ${{ env.REPOSITORY_IMAGE }}/${{ env.ARTIFACT_ID }}
             
-            - name: Replace and Print new tag suffix
+            - name: Build new tag suffix
               id: replace_tag
               run: |
                 TAGS="${{ steps.docker_metadata.outputs.tags }}"
                 NEW_TAGS=$(echo $TAGS | sed "s/:.*$/:$PROJECT_VERSION/")
                 echo "NEW_TAGS=$NEW_TAGS" >> $GITHUB_ENV
             
-            - name: Print new tags
+            - name: Print tag docker image
               run: echo "The new tags are ${{ env.NEW_TAGS }}"
 
             - name: Build and push Docker images
@@ -79,6 +75,13 @@ jobs:
                 push: true
                 tags: ${{ env.NEW_TAGS }}
                 labels: ${{ steps.docker_metadata.outputs.labels }}
+
+            # - name: Setup Java JDK
+            #   uses: actions/setup-java@v4.2.1
+            #   with: 
+            #       java-version: 17
+            #       distribution: temurin
+            #       cache: maven
 
             # - name: build with maven
             #   run: |
