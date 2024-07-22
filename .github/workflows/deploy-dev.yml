@@ -51,7 +51,7 @@ jobs:
                 xml-file: 'pom.xml'
                 xpath: '//*[local-name()="artifactId"]'
          
-            - run: echo "The version is ${{ steps.getxml.outputs }}"
+            - run: echo "The version is ${{ steps.getxml.outputs.getxml }}"
             
             - name: Print project version
               run: echo "The project version is ${{ env.PROJECT_VERSION }}"
