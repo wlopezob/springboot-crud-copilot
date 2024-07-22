@@ -50,8 +50,7 @@ jobs:
               with:
                 xml-file: 'pom.xml'
                 xpath: |
-                  //project/artifactId
-                  //project/version
+                  //project
          
             - run: echo "The version is ${{ steps.getxml.outputs }}"
             
