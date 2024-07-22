@@ -32,7 +32,7 @@ jobs:
               uses: actions/github-script@v6
               with:
                 script: |
-                  core.setFailed('This workflow can´t only run on the 'main' or 'master' branch.')
+                  core.setFailed("This workflow can´t only run on the 'main' or 'master' branch.")
 
             - name: branch seleted
               run: echo "branch is $BRANCH_NAME"
