@@ -48,7 +48,7 @@ jobs:
               id: getxml
               uses: mavrosxristoforos/get-xml-info@1.0
               with:
-                xml-file: 'a-file-here.xml'
+                xml-file: 'pom.xml'
                 xpath: '//version'  
          
             - run: echo "The version is ${{ steps.getxml.outputs }}"
