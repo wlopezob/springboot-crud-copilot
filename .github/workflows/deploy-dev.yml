@@ -34,6 +34,23 @@ jobs:
               with:
                   ref: ${{ env.BRANCH_NAME }}
             
+            - name: Setup Java JDK
+              uses: actions/setup-java@v4.2.1
+              with: 
+                  java-version: 17
+                  distribution: temurin
+                  cache: maven
+
+            - name: build and test with maven
+              run: |
+                  mvn clean install
+
+            - name: Generate JaCoCo Badge
+              uses: cicirello/jacoco-badge-generator@v2
+              with:
+                generate-branches-badge: true
+                jacoco-csv-file: target/site/jacoco/jacoco.csv
+
             - name: Get version from pom.xml
               id: get_version
               run: |
@@ -76,14 +93,4 @@ jobs:
                 tags: ${{ env.NEW_TAGS }}
                 labels: ${{ steps.docker_metadata.outputs.labels }}
 
-            # - name: Setup Java JDK
-            #   uses: actions/setup-java@v4.2.1
-            #   with: 
-            #       java-version: 17
-            #       distribution: temurin
-            #       cache: maven
-
-            # - name: build with maven
-            #   run: |
-            #       mvn clean install
             
