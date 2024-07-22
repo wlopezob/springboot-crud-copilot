@@ -19,13 +19,20 @@ jobs:
             ARTIFACT_ID: ''
             NEW_TAGS: ''
         steps:
+            # - name: Ensure running branch dev
+            #   run: |
+            #     if [[ "$BRANCH_NAME" == "main" || "$BRANCH_NAME" == "master" 
+            #     || "$BRANCH_NAME" == "develop" ]]; then
+            #       echo "This workflow can´t only run on the 'main' or 'master' branch."
+            #       exit 1
+            #     fi
+
             - name: Ensure running branch dev
-              run: |
-                if [[ "$BRANCH_NAME" == "main" || "$BRANCH_NAME" == "master" 
-                || "$BRANCH_NAME" == "develop" ]]; then
-                  echo "This workflow can´t only run on the 'main' or 'master' branch."
-                  exit 1
-                fi
+              if: ${{ env.BRANCH_NAME == 'main' || env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'develop' }}
+              uses: actions/github-script@v6
+              with:
+                script: |
+                  core.setFailed('This workflow can´t only run on the 'main' or 'master' branch.')
 
             - name: branch seleted
               run: echo "branch is $BRANCH_NAME"
