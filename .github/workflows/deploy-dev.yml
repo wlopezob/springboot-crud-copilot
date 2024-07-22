@@ -49,8 +49,7 @@ jobs:
               uses: mavrosxristoforos/get-xml-info@1.0
               with:
                 xml-file: 'pom.xml'
-                xpath: |
-                  //project
+                xpath: '//*[local-name()="artifactId"]'
          
             - run: echo "The version is ${{ steps.getxml.outputs }}"
             
