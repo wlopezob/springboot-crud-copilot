@@ -49,9 +49,11 @@ jobs:
               uses: mavrosxristoforos/get-xml-info@1.0
               with:
                 xml-file: 'pom.xml'
-                xpath: '//*[local-name()="artifactId"]'
+                #xpath: '//*[local-name()="artifactId"]'
+                xpath: '/project/version'
          
-            - run: echo "The version is ${{ steps.getxml.outputs.info[1]  }}"
+            - run: echo "The version is ${{ steps.getxml.outputs.info  }}"
+            - run: echo "The version data is ${{ steps.getxml.outputs.data  }}"
             
             - name: Print project version
               run: echo "The project version is ${{ env.PROJECT_VERSION }}"
