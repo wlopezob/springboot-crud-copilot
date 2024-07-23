@@ -98,7 +98,12 @@
 				</executions>
 				<configuration>
 					<excludes>
-						<exclude>**/com/wlopezob/personav1/model/**/*.class</exclude>
+						<exclude>**/**/model/**/*.class</exclude>
+						<exclude>**/**/model/*.class</exclude>
+						<exclude>**/**/config/**/*.class</exclude>
+						<exclude>**/**/config/*.class</exclude>
+						<exclude>**/*Application.class</exclude>
+						<exclude>**/**/mapper/*.class</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
