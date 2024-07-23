@@ -56,7 +56,11 @@ jobs:
             #       -Dsonar.organization=demodemo \
             #       -Dsonar.projectKey=demodemo_spring-boot-crud-copilot
 
-
+            - name: build and test with maven
+              run: |
+                  mvn clean install
+                  ls -la ./target/site/jacoco
+                  
             - name: SonarCloud Scan
               # You may pin to the exact commit or the version.
               # uses: SonarSource/sonarcloud-github-action@e44258b109568baa0df60ed515909fc6c72cba92
@@ -70,10 +74,7 @@ jobs:
                   -Dsonar.organization=demodemo
                   -Dsonar.host.url=https://sonarcloud.io
 
-            - name: build and test with maven
-              run: |
-                  mvn clean install
-                  ls -la ./target/site/jacoco
+
                   
             - name: Generate JaCoCo Badge
               uses: cicirello/jacoco-badge-generator@v2
