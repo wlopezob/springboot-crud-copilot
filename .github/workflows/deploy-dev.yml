@@ -59,12 +59,15 @@ jobs:
                   -Dsonar.host.url=https://sonarcloud.io \
                   -Dsonar.organization=demodemo \
                   -Dsonar.projectKey=demodemo_spring-boot-crud-copilot
-                  -Dsonar.coverage.jacoco.xmlReportPaths=./target/site/jacoco/jacoco.xml
+                  #-Dsonar.coverage.jacoco.xmlReportPaths=./target/site/jacoco/jacoco.xml
                   -Dsonar.sources=./src/
                   -Dsonar.test.exclusions=./src/test/**
                   -Dsonar.tests=./src/test/
                   -Dsonar.verbose=true
 
+            - name: verify target
+              run: |
+                    ls -la ./target/site/jacoco
             # - name: Generate JaCoCo Badge
             #   uses: cicirello/jacoco-badge-generator@v2
             #   with:
