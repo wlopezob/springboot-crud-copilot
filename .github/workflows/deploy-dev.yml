@@ -59,7 +59,7 @@ jobs:
                   -Dsonar.host.url=https://sonarcloud.io \
                   -Dsonar.organization=demodemo \
                   -Dsonar.projectKey=demodemo_spring-boot-crud-copilot
-                  #-Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+                  -Dsonar.coverage.jacoco.xmlReportPaths=${{ github.workspace }}/target/site/jacoco/jacoco.xml
                   #-Dsonar.sources=src/main/java
                   #-Dsonar.test.exclusions=src/test/**
                   #-Dsonar.tests=src/test/
