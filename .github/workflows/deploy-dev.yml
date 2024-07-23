@@ -68,8 +68,8 @@ jobs:
               run: |
                     ls -la ./target/site/jacoco
                     pwd
-                    ls -la ${{ github.workspace }}/target/site/jacoco
-                    cat ${{ github.workspace }}/target/site/jacoco/jacoco.xml
+                    cd ${{ github.workspace }}/target/site/jacoco
+                    pwd
                     echo "workspace: ${{ github.workspace }}" 
                     
             # - name: Generate JaCoCo Badge
