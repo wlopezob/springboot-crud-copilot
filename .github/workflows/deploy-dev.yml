@@ -49,20 +49,20 @@ jobs:
                   distribution: temurin
                   cache: maven
 
-            - name: build and test with maven
-              run: |
-                  mvn clean install
-                  ls -la ./target/site/jacoco
+            # - name: build and test with maven
+            #   run: |
+            #       mvn clean install
+            #       ls -la ./target/site/jacoco
             - name: Build and analyze
               run: | 
-                  mvn sonar:sonar \
+                  mvn verify sonar:sonar \
                   -Dsonar.host.url=https://sonarcloud.io \
                   -Dsonar.organization=demodemo \
                   -Dsonar.projectKey=demodemo_spring-boot-crud-copilot
                   #-Dsonar.coverage.jacoco.xmlReportPaths=./target/site/jacoco/jacoco.xml
-                  -Dsonar.sources=./src/
-                  -Dsonar.test.exclusions=./src/test/**
-                  -Dsonar.tests=./src/test/
+                  -Dsonar.sources=src/
+                  -Dsonar.test.exclusions=src/test/**
+                  -Dsonar.tests=src/test/
                   -Dsonar.verbose=true
 
             - name: verify target
