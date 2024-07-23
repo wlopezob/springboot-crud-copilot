@@ -67,6 +67,9 @@ jobs:
             - name: verify target
               run: |
                     ls -la ./target/site/jacoco
+                    pwd
+                    echo "workspace: ${{ github.workspace }}" 
+                    
             # - name: Generate JaCoCo Badge
             #   uses: cicirello/jacoco-badge-generator@v2
             #   with:
