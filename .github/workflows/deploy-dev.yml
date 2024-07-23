@@ -66,9 +66,8 @@ jobs:
 
             - name: verify target
               run: |
-                    ls -la ./target/site/jacoco
-                    pwd
                     cd ${{ github.workspace }}/target/site/jacoco
+                    ls -la
                     pwd
                     echo "workspace: ${{ github.workspace }}" 
                     
