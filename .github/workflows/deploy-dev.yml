@@ -63,7 +63,6 @@ jobs:
                   #-Dsonar.sources=src/
                   #-Dsonar.test.exclusions=src/test/**
                   #-Dsonar.tests=src/test/
-                  -Dsonar.verbose=true
 
             - name: verify target
               run: |
