@@ -1,6 +1,7 @@
 package com.wlopezob.personav1.Util;
 
 import com.google.gson.Gson;
+import lombok.NoArgsConstructor;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
@@ -8,7 +9,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 
-public class Util {
+@NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
+public class  Util {
     public static String convertObjectToJson(Object object) {
         Gson gson = new Gson();
         String jsonString = gson.toJson(object);

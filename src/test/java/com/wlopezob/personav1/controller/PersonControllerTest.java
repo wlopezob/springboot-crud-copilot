@@ -38,4 +38,9 @@ class PersonControllerTest {
             assertEquals(personResponseDto, personResponseDto1.getBody());
         });
     }
+
+    @Test
+    void getMethodName() {
+        assertNotNull(personController.getMethodName("param"));
+    }
 }
