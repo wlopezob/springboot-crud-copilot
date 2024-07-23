@@ -52,6 +52,7 @@ jobs:
             - name: build and test with maven
               run: |
                   mvn clean install
+                  ls -la ./target
             - name: Build and analyze
               run: | 
                   mvn verify sonar:sonar \
