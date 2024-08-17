@@ -18,5 +18,7 @@ jobs:
       - name: Deploy to Dev
         uses: wlopezob/githubaction-pipeline/.github/actions/apis-step@main #./apis/deploy-dev-steps.yaml@main
         with:
-            repository: "repo"
-            branch: "branch"
+          repository: "repo"
+          branch: "branch"
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_SECRET_PAT }}
