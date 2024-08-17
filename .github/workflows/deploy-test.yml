@@ -16,7 +16,7 @@ jobs:
           pwd
 
       - name: Deploy to Dev
-        uses: ./githubaction-pipeline/.github/actions/apis-step@main #./apis/deploy-dev-steps.yaml@main
+        uses: wlopezob/githubaction-pipeline/.github/actions/apis-step@main #./apis/deploy-dev-steps.yaml@main
         with:
           repository: "repo"
           branch: "branch1"
