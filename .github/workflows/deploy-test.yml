@@ -1,0 +1,22 @@
+name: Deploy Crud
+on:
+  push:
+    branches:
+      - feature/* 
+jobs:
+  deploy-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: check
+        run: | 
+          ls -la
+          pwd
+
+      - name: Deploy to Dev
+        uses: wlopezob/githubaction-pipeline/.github/actions/apis-step@main #./apis/deploy-dev-steps.yaml@main
+        with:
+            repository: "repo"
+            branch: "branch"
