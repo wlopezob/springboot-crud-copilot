@@ -8,6 +8,8 @@ import com.wlopezob.personav1.service.PersonService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.extensions.Extension;
+import io.swagger.v3.oas.annotations.extensions.ExtensionProperty;
 import io.swagger.v3.oas.annotations.headers.Header;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -35,8 +37,24 @@ public class PersonController {
       description = "Registra los datos de una persona",
       method = "POST",
       tags = {"persona"},
-      summary = "Registra los datos de una persona y verifica que el dni no exista"
+      summary = "Registra los datos de una persona y verifica que el dni no exista",
+      extensions = {
+          @Extension(
+              name = "x-amazon-apigateway-integration",
+              properties = {
+                  @ExtensionProperty(name = "uri", value = "http://petstore.execute-api.us-west-2.amazonaws.com/petstore/pets"),
+                  @ExtensionProperty(name = "passthroughBehavior", value = "when_no_match"),
+                  @ExtensionProperty(name = "httpMethod", value = "GET"),
+                  @ExtensionProperty(name = "type", value = "http"),
+                  @ExtensionProperty(name = "responses.default.statusCode", value = "200"),
+                  @ExtensionProperty(name = "responses.default.responseParameters.method.response.header.Access-Control-Allow-Origin", value = "'*'"),
+                  @ExtensionProperty(name = "requestParameters.integration.request.querystring.page", value = "method.request.querystring.page"),
+                  @ExtensionProperty(name = "requestParameters.integration.request.querystring.type", value = "method.request.querystring.type")
+              }
+          )
+      }
   )
+
   @ApiResponses({
       @ApiResponse(
           responseCode = "200", description = "Resultado con los datos de la persona",
