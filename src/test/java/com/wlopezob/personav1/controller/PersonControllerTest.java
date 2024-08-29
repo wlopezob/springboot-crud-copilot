@@ -1,9 +1,11 @@
 package com.wlopezob.personav1.controller;
 
+import com.wlopezob.personav1.model.HeaderData;
 import com.wlopezob.personav1.util.Util;
 import com.wlopezob.personav1.model.dto.PersonRequestDto;
 import com.wlopezob.personav1.model.dto.PersonResponseDto;
 import com.wlopezob.personav1.service.PersonService;
+import io.swagger.v3.oas.models.headers.Header;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -33,7 +35,7 @@ class PersonControllerTest {
                 .thenReturn(personResponseDto);
 
         //Act
-        personController.savePerson(personRequestDto).subscribe(personResponseDto1 -> {
+        personController.savePerson(personRequestDto, new HeaderData()).subscribe(personResponseDto1 -> {
             //Assert
             assertEquals(personResponseDto, personResponseDto1.getBody());
         });
@@ -41,6 +43,6 @@ class PersonControllerTest {
 
     @Test
     void getMethodName() {
-        assertNotNull(personController.getMethodName("param"));
+        assertNotNull(personController.getMethodName());
     }
 }

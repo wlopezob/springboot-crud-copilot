@@ -1,4 +1,4 @@
-package com.wlopezob.personav1.Util;
+package com.wlopezob.personav1.util;
 
 import com.wlopezob.personav1.model.dto.PersonRequestDto;
 import org.junit.jupiter.api.Test;

@@ -1,5 +1,5 @@
 server:
-  port: 6000
+  port: 8080
 
 spring:
   application:
@@ -19,3 +19,19 @@ spring:
     properties:
       hibernate:
         enable_lazy_load_no_trans: true
+
+springdoc:
+  info:
+    version: '0.0.2-SNAPSHOT'
+    title: 'persona-v1'
+    description: 'Api UX Servicio de pesonas'
+    servers:
+      - 'http://localhost:6200/'
+      - 'http://localhost:8080/'
+  api-docs:
+    path: /openapi
+    version: "openapi_3_0"
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+    disable-swagger-default-url: true
