@@ -29,9 +29,12 @@ springdoc:
       - 'http://localhost:6200/'
       - 'http://localhost:8080/'
   api-docs:
-    path: /openapi
+    path: /api-docs
     version: "openapi_3_0"
-#  swagger-ui:
-#    path: /swagger-ui.html
-#    enabled: true
-#    disable-swagger-default-url: true
+    enabled: true
+    yaml:
+      enabled: true
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+    disable-swagger-default-url: true

@@ -49,7 +49,9 @@ public class PersonController {
                   @ExtensionProperty(name = "responses.default.statusCode", value = "200"),
                   @ExtensionProperty(name = "responses.default.responseParameters.method.response.header.Access-Control-Allow-Origin", value = "'*'"),
                   @ExtensionProperty(name = "requestParameters.integration.request.querystring.page", value = "method.request.querystring.page"),
-                  @ExtensionProperty(name = "requestParameters.integration.request.querystring.type", value = "method.request.querystring.type")
+                  @ExtensionProperty(name = "requestParameters.integration.request.querystring.type", value = "method.request.querystring.type"),
+                  @ExtensionProperty(name = "requestParameters.integration.request.header.clientAuth", value = "method.request.header.clientAuth"),
+                  @ExtensionProperty(name = "requestParameters.integration.request.header.x-tenant", value = "method.request.header.x-tenant")
               }
           )
       }
