@@ -1,6 +1,7 @@
 package com.wlopezob.personav1.controller;
 
 import com.wlopezob.personav1.Util.ApiException;
+//import com.wlopezob.personav1.config.LogWithRequestId;
 import com.wlopezob.personav1.model.HeaderData;
 import com.wlopezob.personav1.model.dto.PersonRequestDto;
 import com.wlopezob.personav1.model.dto.PersonResponseDto;
@@ -16,11 +17,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 
@@ -111,16 +114,35 @@ public class PersonController {
           }
       )
   })
+  //@LogWithRequestId
   public Mono<ResponseEntity<PersonResponseDto>> savePerson(
-      @Valid @RequestBody PersonRequestDto personRequestDto,
-      @RequestHeader HeaderData headerData) {
+      @Valid @RequestBody PersonRequestDto personRequestDto) {
     return Mono.just(personService.savePerson(personRequestDto))
         .map(ResponseEntity::ok);
   }
 
   @GetMapping("/hi")
-  public String getMethodName() {
-    return "Hola";
+  public Mono<String> getMethodName() {
+    log.info("Application is running Hello");
+    return  Mono.just("Hola");
   }
 
+  @GetMapping("/lista")
+  public Flux<PersonResponseDto> lista() {
+    var persons = List.of(PersonResponseDto.builder()
+            .id(1L)
+            .name("w")
+        .build(), PersonResponseDto.builder()
+        .id(2L)
+        .name("j")
+        .build());
+    return Flux.fromIterable(persons);
+  }
+
+  @GetMapping("/success")
+  public Mono<Void> success() {
+    return Mono.just("Success")
+        .doOnSuccess(s -> log.info("Success"))
+        .then();
+  }
 }

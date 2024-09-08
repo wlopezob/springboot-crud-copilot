@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class PersonaV1Application extends CustomAppApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(PersonaV1Application.class, args);
 	}
 

@@ -24,16 +24,18 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonResponseDto savePerson(PersonRequestDto personRequestDto) {
+        log.info("Saving person: {}", personRequestDto);
         validatePerson(personRequestDto);
         PersonEntity personEntity = personMapper.requestDtoToEntity(personRequestDto);
         PersonEntity savedEntity = personRepository.save(personEntity);
-        //String save = Util.convertObjectToJson(savedEntity);
+        log.info("Person saved: {}", savedEntity);
         return personMapper.entityToResponseDto(savedEntity);
     }
 
     private void validatePerson(PersonRequestDto personRequestDto) {
         personRepository.findByDni(personRequestDto.getDni())
                 .ifPresent(person -> {
+                    log.error("Person with DNI {} already exists.", personRequestDto.getDni());
                     throw new RuntimeException("Person with DNI " + personRequestDto.getDni() + " already exists.");
                 });
     }

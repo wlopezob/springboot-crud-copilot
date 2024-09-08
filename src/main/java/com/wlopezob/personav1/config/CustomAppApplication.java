@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import reactor.core.publisher.Hooks;
 
 public class CustomAppApplication implements CommandLineRunner {
 
@@ -20,7 +21,8 @@ public class CustomAppApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
+        Hooks.enableContextLossTracking();
+        Hooks.enableAutomaticContextPropagation();
     }
     @Bean
     public OpenAPI customOpenApi(){

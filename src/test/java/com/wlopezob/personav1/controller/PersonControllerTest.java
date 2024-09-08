@@ -35,7 +35,7 @@ class PersonControllerTest {
                 .thenReturn(personResponseDto);
 
         //Act
-        personController.savePerson(personRequestDto, new HeaderData()).subscribe(personResponseDto1 -> {
+        personController.savePerson(personRequestDto).subscribe(personResponseDto1 -> {
             //Assert
             assertEquals(personResponseDto, personResponseDto1.getBody());
         });
