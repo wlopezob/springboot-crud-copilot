@@ -15,6 +15,6 @@ RUN chown -R batch:batchgroup /usr/opt/service/ && \
 
 ENV JAVA_OPTS ''
 USER batch
-EXPOSE 6000
+EXPOSE 8084
 
 ENTRYPOINT ["sh", "-c", "java  $JAVA_OPTS -jar /usr/opt/service/app.jar"]
