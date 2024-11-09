@@ -77,9 +77,6 @@
 			<version>7.4</version>
 		</dependency>
 		<!--end dependence for logstash-->
-		<!--start dependence for MDC reactive-->
-
-	<!--end dependence for MDC reactive-->
 	</dependencies>
 
 	<build>
