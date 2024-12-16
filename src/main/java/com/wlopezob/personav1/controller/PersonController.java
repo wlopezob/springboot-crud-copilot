@@ -145,4 +145,17 @@ public class PersonController {
         .doOnSuccess(s -> log.info("Success"))
         .then();
   }
+
+  @GetMapping("/listav2")
+  public Flux<PersonResponseDto> listav2() {
+    log.info("Listando personas");
+    return personService.listPerson();
+  }
+
+  @PostMapping("/savev2")
+  public Mono<ResponseEntity<PersonResponseDto>> savePersonv2(
+      @Valid @RequestBody PersonRequestDto personRequestDto) {
+    return personService.savePersonv2(personRequestDto)
+        .map(ResponseEntity::ok);
+  }
 }

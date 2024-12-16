@@ -1,23 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-            <timeZone>America/Lima</timeZone>
-            <includeMdcKeyName>Request-ID</includeMdcKeyName>
-            <includeMdcKeyName>service-name</includeMdcKeyName>
 
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+    <springProperty scope="context" name="ms-name" source="spring.application.name" defaultValue=""/>
+    <springProperty scope="context" name="logstash-destination" source="logstash.destination" defaultValue="localhost:5000"/>
+
+    <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>${logstash-destination}</destination>
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <timestamp>
+                    <timeZone>America/Lima</timeZone>
+                </timestamp>
+                <pattern>
+                    <pattern>
+                        {
+                        "level": "%level",
+                        "service-name": "${ms-name}",
+                        "version": "@project.version@",
+                        "trace": "%X{traceparent:-}",
+                        "exportable": "%X{X-Span-Export:-}",
+                        "pid": "${PID:-}",
+                        "thread": "%thread",
+                        "class": "%logger{40}",
+                        "message": "%message",
+                        "Request-ID": "%X{Request-ID:-}"
+                        }
+                    </pattern>
+                </pattern>
+            </providers>
         </encoder>
     </appender>
 
-    <logger name="com.wlopezob.personav1" level="DEBUG" additivity="false">
-        <appender-ref ref="CONSOLE"/>
-    </logger>
-
-    <!-- Logger específico para Hibernate -->
-    <logger name="org.hibernate.SQL" level="DEBUG" additivity="false">
-        <appender-ref ref="CONSOLE"/>
-    </logger>
     <root level="INFO">
+        <appender-ref ref="LOGSTASH"/>
         <appender-ref ref="CONSOLE"/>
     </root>
 </configuration>

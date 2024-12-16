@@ -1,5 +1,6 @@
 package com.wlopezob.personav1.config;
 
+import com.wlopezob.personav1.config.properties.ApplicationProperties;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import java.util.UUID;

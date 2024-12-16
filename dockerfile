@@ -8,7 +8,7 @@ FROM eclipse-temurin:17-jdk-alpine
 RUN mkdir -p /usr/opt/service && addgroup --system batchgroup && adduser --system --ingroup batchgroup batch
 
 COPY --from=builder /usr/home/app/target/*.jar /usr/opt/service/app.jar
-
+ADD ./agent/opentelemetry-javaagent.jar /agent/opentelemetry-javaagent.jar
 RUN chown -R batch:batchgroup /usr/opt/service/ && \
     chmod -R 755 /usr/opt/service/ && \
     chown -R batch:batchgroup /mnt/

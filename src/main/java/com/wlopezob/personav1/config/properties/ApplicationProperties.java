@@ -1,4 +1,4 @@
-package com.wlopezob.personav1.config;
+package com.wlopezob.personav1.config.properties;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,4 +12,5 @@ public class ApplicationProperties {
 
   @Value("${spring.application.name}")
   private String applicationName;
+
 }

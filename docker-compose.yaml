@@ -1,5 +1,22 @@
 version: '3'
 services:
+#  crud-copilot-service:
+#    container_name: crud-copilot-service
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    environment:
+#      JAVA_TOOL_OPTIONS: "-javaagent:agent/opentelemetry-javaagent.jar"
+#      OTEL_TRACES_EXPORTER: "otlp"
+#      OTEL_RESOURCE_ATTRIBUTES: "service=persona-v1,env=dev"
+#      OTEL_EXPORTER_OTLP_ENDPOINT: "http://collector:4317"
+#      OTEL_LOGS_EXPORTER: "otlp"
+#      OTEL_EXPORTER_OTLP_PROTOCOL: "grpc"
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - collector
+
   collector:
     container_name: collector
     image: otel/opentelemetry-collector-contrib:0.91.0
@@ -10,23 +27,23 @@ services:
     restart: always
     ports:
       - "4317:4317" # OTLP gRPC receiver
-      - "8889:8889" # Prometheus exporter metrics
+      - "8889" # Prometheus exporter metrics
     depends_on:
       - loki
       - jaeger-all-in-one
       - zipkin-all-in-one
-#      - tempo
+      - tempo
 
-#  tempo:
-#    container_name: tempo
-#    image: grafana/tempo:latest
-#    command: [ "-config.file=/etc/tempo.yml" ]
-#    volumes:
-#      - ./docker/tempo/tempo.yml:/etc/tempo.yml
-#    restart: always
-#    ports:
-#      - "4317"  # otlp grpc
-#      - "3200"  # tempo as grafana datasource
+  tempo:
+    container_name: tempo
+    image: grafana/tempo:latest
+    command: [ "-config.file=/etc/tempo.yml" ]
+    volumes:
+      - ./docker/tempo/tempo.yml:/etc/tempo.yml
+    restart: always
+    ports:
+      - "4317"  # otlp grpc
+      - "3200"  # tempo as grafana datasource
 
   loki:
     container_name: loki
@@ -48,8 +65,8 @@ services:
     restart: always
     ports:
       - '9090:9090'
-#    depends_on:
-#      - collector
+    depends_on:
+      - collector
 
   grafana:
     container_name: grafana
@@ -61,10 +78,10 @@ services:
       - "3000:3000"
     depends_on:
       - prometheus
-#      - loki
-#      - jaeger-all-in-one
-#      - zipkin-all-in-one
-#      - tempo
+      - loki
+      - jaeger-all-in-one
+      - zipkin-all-in-one
+      - tempo
 
   jaeger-all-in-one:
     container_name: jaeger
@@ -83,3 +100,46 @@ services:
     ports:
       - "9411:9411"
 
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.15.2
+    container_name: elasticsearch
+    environment:
+      - node.name=elasticsearch
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.15.2
+    container_name: logstash
+    ports:
+      - 5000:5000
+    environment:
+      - 'LS_JAVA_OPTS=-Xmx256m -Xms256m'
+    depends_on:
+      - elasticsearch
+    volumes:
+      - ./docker/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.15.2
+    container_name: kibana
+    ports:
+      - 5601:5601
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+      - 'NODE_OPTIONS=--max-old-space-size=2048'
+    depends_on:
+      - elasticsearch
+
+volumes:
+  es-data:
+    driver: local
